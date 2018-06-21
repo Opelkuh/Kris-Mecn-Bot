@@ -1,0 +1,20 @@
+{
+  "name": "kris_mecn_bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Opelkuh",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^11.2.1",
+    "node-opus": "^0.2.7",
+    "request": "^2.83.0",
+    "xml2js": "^0.4.19",
+    "youtube-search": "^1.0.10",
+    "ytdl-core": "^0.20.1",
+    "zlib-sync": "^0.1.4"
+  }
+}
