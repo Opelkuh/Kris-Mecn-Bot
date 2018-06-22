@@ -17,11 +17,10 @@ function rule34(msg) {
 			return;
 		}
 		xmlParse(body, function (err, data) {
-			if (err) {
+			if (err || !data) {
 				dh.log(err)
-				return
+				return;
 			}
-
 			if (data.posts && data.posts.$.count != "0") {
 				getRule34Image(msg, data.posts.$.count);
 			} else {
@@ -41,17 +40,16 @@ function getRule34Image(msg, count) {
 	request.get("https://rule34.xxx/index.php?page=dapi&s=post&q=index&limit=1&tags=" + msg.splitContent.join(" ") + "&pid=" + target, {}, function (error, response, body) {
 		if (error) {
 			dh.log("Error when accessing rule34 picture with id " + target);
-			return
+			return;
 		}
 		xmlParse(body, function (err, data) {
 			if (err) {
 				dh.log("XML parse err: " + err)
-				return
+				return;
 			}
-
-			if (data.posts.post) {
+			if (data.hasOwnProperty("posts") && data.posts.hasOwnProperty("post")) {
 				dh.log(`Sent r34 image for (${msg.author.id})${msg.author.username}#${msg.author.discriminator}, Tags: "${msg.splitContent.join(" ")}"`);
-				msg.channel.send(msg.author.username + " requested **" + msg.splitContent.join(" ") + "**. Selected picture #" + (target+1) + " from " + (count+1) + " pictures. Here you go: " + data.posts.post[0].$.file_url);
+				msg.channel.send(msg.author.username + " requested **" + msg.splitContent.join(" ") + "**. Selected picture #" + (target + 1) + " from " + (count + 1) + " pictures. Here you go: " + data.posts.post[0].$.file_url);
 			} else {
 				dh.log("Error occured when requesting r34 image for tags: '" + target + "'");
 				msg.channel.send("Couldn't get the picture. Sorry " + msg.author.username + " :(");
