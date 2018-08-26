@@ -50,12 +50,12 @@ voiceCommands.fileCommands.forEach(item => {
 client.addCommand(chatCommands.flex);
 //Add nsfw commands
 client.addCommand(nsfwCommands.rule34);
-//Add util commands //"__**What's new?**__\nNothing.\nThis version has less commands than the previous one but it's actually usable. I will be adding more stuff later.\n\n\n"
+//Add util commands
 client.addCommand(utilityCommands.uptime);
 client.addCommand(utilityCommands.invite);
 client.addCommand(utilityCommands.restart);
 //Create help
-var helpString = cfg.HELP_PREFIX + client.generateHelp(["util", "nsfw", "voice controls", "youtube", "music"]);
+var helpString = cfg.HELP_PREFIX + client.generateHelp(["util", "nsfw", "voice controls", "youtube", "music", "chat"]);
 var helpCmd = new dh.Command("help", (msg) => {
 	msg.author.send(helpString);
 });
