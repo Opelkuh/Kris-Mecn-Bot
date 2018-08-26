@@ -9,6 +9,7 @@ const cfg = require("./config");
 const voiceCommands = require("./voiceCommands.js")(discordClient);
 const nsfwCommands = require("./nsfwCommands.js");
 const utilityCommands = require("./utilityCommands.js")(discordClient);
+const chatCommands = require("./chatCommands.js")(discordClient);
 //Vars
 const client = new dh.Client(discordClient, cfg.PREFIX);
 
@@ -45,6 +46,8 @@ client.addCommand(voiceCommands.volume);
 voiceCommands.fileCommands.forEach(item => {
 	client.addCommand(item);
 });
+//Add chat commnads
+client.addCommand(chatCommands.flex);
 //Add nsfw commands
 client.addCommand(nsfwCommands.rule34);
 //Add util commands //"__**What's new?**__\nNothing.\nThis version has less commands than the previous one but it's actually usable. I will be adding more stuff later.\n\n\n"
