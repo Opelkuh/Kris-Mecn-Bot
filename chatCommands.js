@@ -23,7 +23,7 @@ function init(client) {
 				color = "";
 				break;
 		}
-		msg.channel.send("💪"+color+"👁️👅👁️💪"+color);
+		msg.channel.send(`💪${color}👁️👅👁️💪${color}`);
 	}, "chat", "Flex on 'em! Usage: !flex <none;pale;cream;moderate;dark;black>");
 	//Return
 	return this;
