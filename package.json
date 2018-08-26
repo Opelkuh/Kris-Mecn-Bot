@@ -10,11 +10,11 @@
   "license": "MIT",
   "dependencies": {
     "discord.js": "^11.2.1",
-    "node-opus": "^0.2.7",
+    "node-opus": "^0.3.0",
     "request": "^2.83.0",
     "xml2js": "^0.4.19",
     "youtube-search": "^1.0.10",
-    "ytdl-core": "^0.20.1",
+    "ytdl-core": "^0.24.0",
     "zlib-sync": "^0.1.4"
   }
 }
