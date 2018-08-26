@@ -1,10 +1,30 @@
 const dh = require("./discordHelper.js");
-const cfg = require("./config.js");
 
 function init(client) {
-	this.flex = new dh.Command("flex", (msg) => {		
-		msg.channel.send("💪👁️👅👁️💪");
-	}, "chat", "Flex on 'em!");
+	this.flex = new dh.Command("flex", (msg) => {
+		let color = msg.splitContent[0];
+		switch (color) {
+			case "pale":
+				color = "🏻";
+				break;
+			case "cream":
+				color = "🏼";
+				break;
+			case "moderate":
+				color = "🏽";
+				break;
+			case "dark":
+				color = "🏾";
+				break;
+			case "black":
+				color = "🏿";
+				break;
+			default: 
+				color = "";
+				break;
+		}
+		msg.channel.send(`💪${color}👁️👅👁️💪${color}`);
+	}, "chat", "Flex on 'em! Usage: !flex <none;pale;cream;moderate;dark;black>");
 	//Return
 	return this;
 }
