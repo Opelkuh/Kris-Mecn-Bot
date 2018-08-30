@@ -30,6 +30,7 @@ function init(client) {
 		if (SUPPORTED_SOUND_FILES.indexOf(ext) != -1) {
 			this.fileCommands.push(new dh.Command(path.basename(item, ext), (msg) => {
 				getConnection(msg, (con) => {
+					if (!con) return;
 					con.playFile(path.resolve("music/" + item));
 					dh.log(`Playing "${item}" in ${con.channel.name}, guild: ${con.channel.guild.name}`)
 				}, true);
@@ -143,11 +144,10 @@ function init(client) {
 				msg.channel.send(text)
 					.then(async (message) => {
 						let reactions = {};
-						res.forEach(await
-							function (item, i) {
-								let char = NUM_EMOJIS[i + 1];
-								reactions[char] = item;
-							});
+						res.forEach(await function (item, i) {
+							let char = NUM_EMOJIS[i + 1];
+							reactions[char] = item;
+						});
 						reactions["❌"] = {};
 						chainReact(message, Object.keys(reactions), (message) => {
 							dh.log("Sent all reactions");
