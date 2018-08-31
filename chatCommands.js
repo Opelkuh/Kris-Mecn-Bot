@@ -82,6 +82,15 @@ function init(client) {
 		});
 	}, "chat", "Get wikipedia article! Usage: !wiki <query>");
 
+	this.calc = new dh.Command("calc", (msg) => {
+		let problem = msg.splitContent.join(" ");
+		if (!problem.match(/^[0-9\+\-\*\/\%\:\s]+$/)) {
+			msg.channel.send(`Invalid format, **${msg.author.username}**.`);
+			return;
+		}
+		problem.replace(":", "/");
+		msg.channel.send(`\`${problem}\`\n**Result:** \`${eval(problem)}\``);
+	}, "calc", "Easy calculator! Usage: !calc <problem>");
 	//Return
 	return this;
 }
