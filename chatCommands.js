@@ -69,7 +69,6 @@ function init(client) {
 				msg.channel.send(`Nothing found for *${query}*, **${msg.author.username}**. Sorry.`);
 				return;
 			}
-			console.log(data);
 			let found = data[1][0];
 			let result = data[2][0];
 			let link = data[3][0];
