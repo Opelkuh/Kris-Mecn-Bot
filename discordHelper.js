@@ -11,8 +11,8 @@ class Client {
 		if (msg.author.bot || !msg.content.startsWith(this.prefix)) return;
 		if (this.admins.indexOf(msg.author.id) != -1) msg.fromAdmin = true;
 		let msgSplit = msg.content.substr(this.prefix.length).split(" ");
-		if (msgSplit[0] in this.commands) {
-			let command = msgSplit.shift();
+		if (msgSplit[0].toLowerCase() in this.commands) {
+			let command = msgSplit.shift().toLowerCase();
 			Log(`(${msg.author.id})${msg.author.username}#${msg.author.discriminator} requested "${command}"`);
 			msg.splitContent = msgSplit;
 			this.commands[command].call(msg);
@@ -44,9 +44,9 @@ class Client {
 
 	addCommand(cmd) {
 		if (!cmd.command) {
-			this.onCommand.push(cmd)
+			return this.onCommand.push(cmd)
 		}
-		this.commands[cmd.command] = cmd;
+		this.commands[cmd.command.toLowerCase()] = cmd;
 	}
 
 	registerAdmin(id) {
