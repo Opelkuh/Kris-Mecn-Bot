@@ -5,6 +5,9 @@ const fs = require("fs");
 const path = require("path");
 const ytSearch = require("youtube-search");
 
+// Utils
+const { parseVolume } = require("./utilities.js");
+
 const SUPPORTED_SOUND_FILES = [".mp3", ".wav"];
 const NUM_EMOJIS = [
 	"0⃣",
@@ -89,19 +92,11 @@ function init(client) {
 	}, "voice controls", "Disconnects the bot from the current channel");
 
 	this.volume = new dh.Command("volume", (msg) => {
-		let vol = msg.splitContent[0];
-		if (!vol) return;
-		if (vol == "doprava") {
-			vol = 600;
-		}
-		if (isNaN(vol)) return;
 		getConnection(msg, (con) => {
 			if (!con || !con.dispatcher) return;
-			let requested_volume = vol / 100;
-			if (requested_volume > 6) {
-				requested_volume = 6;
-			}
-			con.dispatcher.setVolume(requested_volume);
+
+			const vol = parseVolume(msg.splitContent[0]);
+			con.dispatcher.setVolume(vol);
 		});
 	}, "voice controls", "Usage: !volume <percentage>, Sets the music volume in percentages (Default - 100)");
 
@@ -120,6 +115,7 @@ function init(client) {
 	function youtube(msg) {
 		if (msg.channel.type != "text") return;
 		let url = msg.splitContent[0];
+		const volume = parseVolume(msg.splitContent[1]);
 		if (!url) {
 			dh.log(`(${msg.author.id})${msg.author.username}#${msg.author.discriminator} requested "yt" without arguments`);
 			return;
@@ -153,9 +149,9 @@ function init(client) {
 							dh.log("Sent all reactions");
 						});
 						message.awaitReactions((reaction, user) => reaction.emoji.name in reactions && user.id == msg.author.id, {
-								max: 1,
-								time: 30000
-							})
+							max: 1,
+							time: 30000
+						})
 							.then((reactionCol) => {
 								let reaction = reactionCol.array()[0];
 								if (reaction && reaction.emoji.name in reactions && reactions[reaction.emoji.name].link) {
@@ -174,11 +170,11 @@ function init(client) {
 			});
 			return;
 		} else {
-			playYoutube(msg, url);
+			playYoutube(msg, url, volume);
 		}
 	}
 
-	function playYoutube(msg, url) {
+	function playYoutube(msg, url, volume = 1) {
 		getConnection(msg, (con) => {
 			if (!con) return;
 			let stream = ytdl(url, {
@@ -190,11 +186,12 @@ function init(client) {
 				return;
 			}
 			con.playStream(stream);
+			con.dispatcher.setVolume(volume);
 			dh.log(`Playing "${url}" in ${con.channel.name}, guild: ${con.channel.guild.name}`)
 		}, true);
 	}
 
-	this.yt = new dh.Command("yt", youtube, "youtube", "Usage: !yt <search_terms>, Returns top 5 searches from youtube and plays the selected one. Can also be used with <video_link> which will play the audio immediately.");
+	this.yt = new dh.Command("yt", youtube, "youtube", "Usage: !yt <search_terms> <volume>, Returns top 5 searches from youtube and plays the selected one. Can also be used with <video_link> which will play the audio immediately.");
 
 	//Return
 	return this;
