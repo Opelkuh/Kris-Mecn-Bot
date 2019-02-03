@@ -43,6 +43,7 @@ client.addCommand(voiceCommands.yt);
 client.addCommand(voiceCommands.dc);
 client.addCommand(voiceCommands.stop);
 client.addCommand(voiceCommands.volume);
+client.addCommand(voiceCommands.playing);
 voiceCommands.fileCommands.forEach(item => {
 	client.addCommand(item);
 });

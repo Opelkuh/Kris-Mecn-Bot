@@ -8,7 +8,7 @@ const ytSearch = require("youtube-search");
 // Utils
 const { parseVolume } = require("./utilities.js");
 
-const SUPPORTED_SOUND_FILES = [".mp3", ".wav"];
+const SUPPORTED_SOUND_FILES = [".mp3", ".wav", ".webm", ".mpag", ".mp4"];
 const NUM_EMOJIS = [
 	"0⃣",
 	"1⃣",
@@ -25,6 +25,12 @@ const NUM_EMOJIS = [
 
 
 function init(client) {
+	this.nowPlaying = "";
+
+	this.setPlaying = (value) => {
+		this.nowPlaying = value;
+	}
+
 	this.fileCommands = [];
 
 	let files = fs.readdirSync("./music");
@@ -35,11 +41,16 @@ function init(client) {
 				getConnection(msg, (con) => {
 					if (!con) return;
 					con.playFile(path.resolve("music/" + item));
-					dh.log(`Playing "${item}" in ${con.channel.name}, guild: ${con.channel.guild.name}`)
+					dh.log(`Playing "${item}" in ${con.channel.name}, guild: ${con.channel.guild.name}`);
+					setPlaying(item);
 				}, true);
 			}, "music"));
 		}
 	});
+
+	this.playing = new dh.Command("playing", (msg) => {
+		msg.author.send(this.nowPlaying);
+	}, "voice controls", "Sends a message with url to song which is (or was) playing");
 
 	function getConnection(msg, callback, connect = false) {
 		let channel = msg.member.voiceChannel;
@@ -135,7 +146,7 @@ function init(client) {
 				}
 				let text = `__Search results for **${searchString}**:__`;
 				res.forEach((item, index) => {
-					text += `\n**#${index+1}** - ${item.title}`;
+					text += `\n**#${index + 1}** - ${item.title}`;
 				});
 				msg.channel.send(text)
 					.then(async (message) => {
@@ -185,6 +196,7 @@ function init(client) {
 				dh.log(`YTDL didn't return any stream for "${url}"`);
 				return;
 			}
+			setPlaying(url);
 			con.playStream(stream);
 			con.dispatcher.setVolume(volume);
 			dh.log(`Playing "${url}" in ${con.channel.name}, guild: ${con.channel.guild.name}`)
