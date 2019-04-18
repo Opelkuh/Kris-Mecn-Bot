@@ -50,6 +50,7 @@ voiceCommands.fileCommands.forEach(item => {
 client.addCommand(chatCommands.flex);
 client.addCommand(chatCommands.wiki);
 client.addCommand(chatCommands.calc);
+client.addCommand(chatCommands.roll);
 //Add nsfw commands
 client.addCommand(nsfwCommands.rule34);
 //Add util commands

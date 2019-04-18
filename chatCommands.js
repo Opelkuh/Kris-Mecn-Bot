@@ -99,8 +99,7 @@ function init(client) {
 			rollRangeMin = parseInt(msg.splitContent.split("-")[0]) ? parseInt(msg.splitContent.split("-")[0]) : 0;
 			rollRangeMax = parseInt(msg.splitContent.split("-")[1]) ? parseInt(msg.splitContent.split("-")[1]) : 100;
 		}
-		
-		msg.channel.send(`${msg.author.username} rolled ${Math.floor(Math.random() * rollRangeMax) + rollRangeMin  }`)
+		msg.channel.send(`${msg.author.username} rolled ${Math.floor(Math.random() * rollRangeMax) + rollRangeMin  }!`)
 	})
 	//Return
 	return this;
