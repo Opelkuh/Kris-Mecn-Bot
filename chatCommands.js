@@ -96,7 +96,7 @@ function init(client) {
 		let max = parseInt(msg.splitContent) ? parseInt(msg.splitContent[0].split("-")[1]) : 100;
 		let min = parseInt(msg.splitContent) ? parseInt(msg.splitContent[0].split("-")[0]) : 0;
 		msg.channel.send(`${msg.author.username} rolled \`${getRandomNumberInRange(min,max)}\` \`(${min } - ${max})\``)
-	},"roll","Returns random number in specified range !roll <min>-<max>");
+	},"roll","Returns random number in specified range! Usage: !roll <min>-<max>");
 	getRandomNumberInRange = (min,max) => {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}

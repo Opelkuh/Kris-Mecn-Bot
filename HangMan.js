@@ -109,7 +109,7 @@ function init(client) {
         currentmsg ? currentmsg.delete() : null;
         currentmsg = msg;
         msg.channel.send(`\`${HangManAscii[HangManAscii.length - health]}\`\n\`${currentWord.join(" ")}\`\n\`Guessed characters : ${guessedChar}\``).then(msg => currentmsg = msg)
-	});
+	},"HangManStart","Starts Hangman game Usage: !HangManStart");
 	this.HangManGuess = new dh.Command("Guess",(msg)=>{
         if(msg.splitContent){
             if(msg.splitContent[0].length === 1){
@@ -121,7 +121,7 @@ function init(client) {
                 GameStatus === -1 ? msg.channel.send(`You lost the word was \`${ChoosenWord.join(" ")}\``) : null;
             }
         }
-	});
+	},"Guess","Guess a character for Hangman game! Usage: !Guess <character>");
 	//Return
 	return this;
 }
