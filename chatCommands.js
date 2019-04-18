@@ -93,14 +93,13 @@ function init(client) {
 	}, "calc", "Easy calculator! Usage: !calc <problem>");
 
 	this.roll = new dh.Command("roll", (msg) => {
-		console.log(msg);
 		msg = msg ? msg : "";
 		let max = parseInt(msg.splitContent) ? parseInt(msg.splitContent[0].split("-")[1]) : 100;
 		let min = parseInt(msg.splitContent) ? parseInt(msg.splitContent[0].split("-")[0]) : 0;
 		msg.channel.send(`${msg.author.username} rolled \`${getRandomNumberInRange(min,max)}\``)
 	});
 	getRandomNumberInRange = (min,max) => {
-		return Math.floor(Math.random() * max) + min;
+		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 	//Return
 	return this;
