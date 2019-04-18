@@ -91,6 +91,17 @@ function init(client) {
 		problem.replace(":", "/");
 		msg.channel.send(`\`${problem}\`\n**Result:** \`${eval(problem)}\``);
 	}, "calc", "Easy calculator! Usage: !calc <problem>");
+
+	this.roll = new dh.Command("roll", (msg) => {
+		let rollRangeMin = 0;
+		let rollRangeMax = 100;
+		if(msg.splitContent.length > 3){
+			rollRangeMin = parseInt(msg.splitContent.split("-")[0]) ? parseInt(msg.splitContent.split("-")[0]) : 0;
+			rollRangeMax = parseInt(msg.splitContent.split("-")[1]) ? parseInt(msg.splitContent.split("-")[1]) : 100;
+		}
+		
+		msg.channel.send(`${msg.author.username} rolled ${Math.floor(Math.random() * rollRangeMax) + rollRangeMin  }`)
+	})
 	//Return
 	return this;
 }
