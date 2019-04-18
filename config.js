@@ -44,7 +44,7 @@ cfg.save = function (key, value) {
 cfg.DISCORD_TOKEN = "";
 cfg.YOUTUBE_API_KEY = "";
 cfg.ADMINS = [];
-cfg.PREFIX = "!";
+cfg.PREFIX = "?";
 cfg.PRESENCE = {
     status: "online",
     game: {

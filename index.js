@@ -10,6 +10,7 @@ const voiceCommands = require("./voiceCommands.js")(discordClient);
 const nsfwCommands = require("./nsfwCommands.js");
 const utilityCommands = require("./utilityCommands.js")(discordClient);
 const chatCommands = require("./chatCommands.js")(discordClient);
+const HangMan = require("./HangMan.js")(discordClient);
 //Vars
 const client = new dh.Client(discordClient, cfg.PREFIX);
 
@@ -51,6 +52,8 @@ client.addCommand(chatCommands.flex);
 client.addCommand(chatCommands.wiki);
 client.addCommand(chatCommands.calc);
 client.addCommand(chatCommands.roll);
+client.addCommand(HangMan.HangManStart);
+client.addCommand(HangMan.HangManGuess);
 //Add nsfw commands
 client.addCommand(nsfwCommands.rule34);
 //Add util commands

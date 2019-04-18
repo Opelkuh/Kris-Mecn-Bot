@@ -1,7 +1,7 @@
 const dh = require("./discordHelper.js");
 const discord = require("discord.js")
 const request = require("request");
-
+const HangMan = require("./HangMan.js");
 function init(client) {
 	this.flex = new dh.Command("flex", (msg) => {
 		getRandomChoice = (array) => {
@@ -91,16 +91,17 @@ function init(client) {
 		problem.replace(":", "/");
 		msg.channel.send(`\`${problem}\`\n**Result:** \`${eval(problem)}\``);
 	}, "calc", "Easy calculator! Usage: !calc <problem>");
-
 	this.roll = new dh.Command("roll", (msg) => {
 		msg = msg ? msg : "";
 		let max = parseInt(msg.splitContent) ? parseInt(msg.splitContent[0].split("-")[1]) : 100;
 		let min = parseInt(msg.splitContent) ? parseInt(msg.splitContent[0].split("-")[0]) : 0;
-		msg.channel.send(`${msg.author.username} rolled \`${getRandomNumberInRange(min,max)}\``)
+		msg.channel.send(`${msg.author.username} rolled \`${getRandomNumberInRange(min,max)}\` \`(${min } - ${max})\``)
 	},"roll","Returns random number in specified range !roll <min>-<max>");
 	getRandomNumberInRange = (min,max) => {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
+
+	
 	//Return
 	return this;
 }
