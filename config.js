@@ -41,15 +41,15 @@ cfg.save = function (key, value) {
     }
 }
 //KEYS
-cfg.DISCORD_TOKEN = "";
-cfg.YOUTUBE_API_KEY = "";
+cfg.DISCORD_TOKEN = "NTY4NTA0MTE3OTkxOTY0NzMy.XLjDLQ.h6nqIGf94EdW3DejZWQ2MTV0VBs";
+cfg.YOUTUBE_API_KEY = "AIzaSyDjpHuUZ2gA_ZWjAyDBtoQhWoecxeTpQ6c";
 cfg.ADMINS = [];
 cfg.PREFIX = "!";
 cfg.PRESENCE = {
     status: "online",
     game: {
-        name: " bad music",
-        type: "STREAMING"
+        name: "Kokot&Mamlas",
+        type: "prstí si prdel"
     }
 };
 cfg.HELP_PREFIX = "";
